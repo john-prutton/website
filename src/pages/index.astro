@@ -11,7 +11,9 @@ import me from "../assets/me.webp"
     <div
       class="flex flex-col items-center md:flex-row-reverse md:gap-8 md:justify-around"
     >
-      <div class="my-8 size-64 shrink-0 rounded-full mx-auto overflow-clip">
+      <div
+        class="shadow-xl my-8 size-64 shrink-0 rounded-full mx-auto overflow-clip"
+      >
         <Image
           src={me}
           alt="Close up of John Prutton"
@@ -31,5 +33,53 @@ import me from "../assets/me.webp"
         >
       </h1>
     </div>
+
+    <blockquote>
+      Software engineer based in Cape Town, building the utility infrastructure
+      of tomorrow with <a href="https://metronomic.global" target="_blank"
+        >Metronomic</a
+      >
+    </blockquote>
+
+    <h2>What I'm building</h2>
+    <ul>
+      <li>
+        <a href="/blog/open-tab">OpenTab</a> — realtime bill splitting made easy
+      </li>
+      <li>
+        <a href="/blog/food-inv">FoodInv</a> — advanced food management & analytics
+      </li>
+    </ul>
+
+    <h2>Open source by default</h2>
+    <p>
+      I enjoy building applications that scratch an itch in my own day-to-day,
+      and open-sourcing them so they can help others. When I'm not shipping
+      code, I'm tinkering with my <a href="/blog/omarchy">Arch config</a>, or
+      playing sysadmin on my <a href="/blog/home-server">home server</a>.
+    </p>
+
+    <h2>One beer to rule them all</h2>
+    <p>
+      Beer is my drink of choice, and <a href="/blog/beers"
+        >I'm picky about it</a
+      >. My family have made their living from it for the last 30 years and
+      there's a clear winner: <span
+        class="font-semibold not-hover:bg-slate-200 not-hover:text-slate-200 rounded-lg mr-1"
+        >HEINEKEN!</span
+      >. With that being said, variety is the spice of life and I'll happily try
+      anything new, but the rotation I keep coming back to is short.
+    </p>
+
+    <h2>Off-grid activities</h2>
+    <p>
+      When the weather's right, you can find me off-grid with family and
+      friends, beer and braai tongs in hand. I have a few <a
+        href="/blog/camping">spots</a
+      > around Cape Town that I frequent. A recent trip to Lesotho with my dad turned
+      me into a Land Rover Defender lover. Although Land Rovers have been in my family's
+      blood for easily over half a century, I'm sure this will kickstart overlanding
+      adventures.
+    </p>
   </main>
 </Layout>
