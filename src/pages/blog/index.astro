@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content"
+
+import Layout from "../../layouts/Layout.astro"
+import { formatDate } from "../../util/date.ts"
+
+const posts = (await getCollection("blog")).map((p) => ({
+  title: p.data.title,
+  date: p.data.updatedDate || p.data.pubDate,
+  summary: p.data.description,
+  link: "/blog/" + p.id,
+}))
+---
+
+<Layout>
+  <main class="flex flex-col">
+    {
+      posts.map((p) => (
+        <a href={p.link} class="border border-slate-300 p-2 --h-20">
+          <span class="text-slate-400 text-xs">{formatDate(p.date)}</span>
+          <h2 class="text-xl font-bold">{p.title}</h2>
+
+          <p class="line-clamp-2">{p.summary}</p>
+        </a>
+      ))
+    }
+  </main>
+</Layout>
