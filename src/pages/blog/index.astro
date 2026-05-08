@@ -2,27 +2,107 @@
 import { getCollection } from "astro:content"
 
 import Layout from "../../layouts/Layout.astro"
-import { formatDate } from "../../util/date.ts"
 
 const posts = (await getCollection("blog")).map((p) => ({
   title: p.data.title,
   date: p.data.updatedDate || p.data.pubDate,
-  summary: p.data.description,
+  tags: p.data.tags,
+  blurp: p.data.blurp,
   link: "/blog/" + p.id,
 }))
+
+for (let i = 0; i < 5; i++)
+  posts.push({ ...posts[0], tags: [posts[0].tags[i % 2]] })
+
+const allTags = Array.from(
+  posts.reduce((tags, post) => {
+    for (const t of post.tags) tags.add(t)
+    return tags
+  }, new Set<string>()),
+)
 ---
 
 <Layout>
-  <main class="flex flex-col">
+  <main class="flex flex-col gap-4">
+    <div class="flex flex-row gap-2">
+      {
+        allTags.map((tag, i) => (
+          <button data-tag-button={tag} data-cloak class="opacity-30">
+            #{tag}
+          </button>
+        ))
+      }
+    </div>
     {
-      posts.map((p) => (
-        <a href={p.link} class="border border-slate-300 p-2 --h-20">
-          <span class="text-slate-400 text-xs">{formatDate(p.date)}</span>
+      posts.map((p, i) => (
+        <a
+          href={p.link}
+          data-post-tags={p.tags.join(",")}
+          data-cloak
+          class="border border-slate-300 p-2 fade-in"
+          style={`animation-delay: ${50 * i}ms`}
+        >
+          {p.tags.map((tag) => (
+            <span class="text-slate-400 mr-2 italic">#{tag}</span>
+          ))}
           <h2 class="text-xl font-bold">{p.title}</h2>
 
-          <p class="line-clamp-2">{p.summary}</p>
+          <p class="line-clamp-2">{p.blurp}</p>
         </a>
       ))
     }
   </main>
 </Layout>
+
+<script>
+  import { Signal, effect } from "../../scripts/signal"
+
+  const params = new URLSearchParams(location.search)
+  const activeTags = new Signal<readonly string[]>(params.getAll("tag"))
+
+  function syncURL(tags: readonly string[]) {
+    const p = new URLSearchParams(location.search)
+    p.delete("tag")
+    for (const t of tags) p.append("tag", t)
+    const qs = p.toString()
+    history.replaceState({}, "", qs ? `?${qs}` : location.pathname)
+  }
+
+  for (const btn of document.querySelectorAll<HTMLButtonElement>(
+    "[data-tag-button]",
+  )) {
+    const tag = btn.dataset.tagButton!
+
+    btn.addEventListener("click", () => {
+      const current = activeTags.value
+      activeTags.value = current.includes(tag)
+        ? current.filter((t) => t !== tag)
+        : [...current, tag]
+      syncURL(activeTags.value)
+    })
+
+    effect(() => {
+      const on = activeTags.value.includes(tag)
+      btn.classList.toggle("opacity-100", on)
+      btn.classList.toggle("opacity-30", !on)
+    })
+  }
+
+  for (const post of document.querySelectorAll<HTMLElement>(
+    "[data-post-tags]",
+  )) {
+    const postTags = (post.dataset.postTags as string)
+      .split(",")
+      .filter(Boolean)
+
+    effect(() => {
+      const filter = activeTags.value
+      const visible =
+        filter.length === 0 || postTags.some((t) => filter.includes(t))
+      post.hidden = !visible
+    })
+  }
+
+  for (const el of document.querySelectorAll<HTMLElement>("[data-cloak]"))
+    el.removeAttribute("data-cloak")
+</script>
