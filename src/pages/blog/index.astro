@@ -4,15 +4,13 @@ import { getCollection } from "astro:content"
 import Layout from "../../layouts/Layout.astro"
 
 const posts = (await getCollection("blog")).map((p) => ({
+  slug: p.id,
   title: p.data.title,
   date: p.data.updatedDate || p.data.pubDate,
   tags: p.data.tags,
   blurp: p.data.blurp,
   link: "/blog/" + p.id,
 }))
-
-for (let i = 0; i < 5; i++)
-  posts.push({ ...posts[0], tags: [posts[0].tags[i % 2]] })
 
 const allTags = Array.from(
   posts.reduce((tags, post) => {
@@ -26,7 +24,7 @@ const allTags = Array.from(
   <main class="flex flex-col gap-4">
     <div class="flex flex-row gap-2">
       {
-        allTags.map((tag, i) => (
+        allTags.map((tag) => (
           <button data-tag-button={tag} data-cloak class="opacity-30">
             #{tag}
           </button>
@@ -34,13 +32,12 @@ const allTags = Array.from(
       }
     </div>
     {
-      posts.map((p, i) => (
+      posts.map((p) => (
         <a
           href={p.link}
           data-post-tags={p.tags.join(",")}
           data-cloak
-          class="border border-slate-300 p-2 fade-in"
-          style={`animation-delay: ${50 * i}ms`}
+          class="border border-slate-300 p-2"
         >
           {p.tags.map((tag) => (
             <span class="text-slate-400 mr-2 italic">#{tag}</span>

@@ -23,7 +23,7 @@ const { Content } = await render(post)
       </h1>
 
       <span class="opacity-70">
-        {formatDate(post.data.updatedDate || post.data.pubDate)}
+        {formatDate(post.data.updatedDate ?? post.data.pubDate)}
       </span>
     </div>
 
