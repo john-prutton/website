@@ -1,8 +1,21 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+html,
+body {
+  @apply min-h-svh flex flex-col;
+}
+
 main,
 #nav-bar,
 footer {
-  @apply px-2 md:px-0 max-w-3xl mx-auto;
+  @apply px-2 md:px-0 max-w-3xl w-full mx-auto;
+}
+
+main {
+  @apply grow;
+}
+
+[data-cloak] {
+  display: none !important;
 }
