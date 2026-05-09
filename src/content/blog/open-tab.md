@@ -2,7 +2,7 @@
 title: "OpenTab: simplified, real-time bill splitting"
 blurp: Easily split bills amongst friends
 pubDate: 2026-04-28
-tags: ["tech", "camping"]
+tags: ["project"]
 ---
 
 ## The problem
