@@ -9,7 +9,7 @@ const blog = defineCollection({
     blurp: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    tags: z.array(z.enum(["tech", "camping"])),
+    tags: z.array(z.enum(["tech", "camping", "project"])),
   }),
 })
 
