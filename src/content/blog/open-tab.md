@@ -10,13 +10,14 @@ tags: ["project"]
 We've all been there, whether it's a fancy dinner with friends or takeaway
 lunch with coworkers, it always ends the same. Passing the bill around and
 waiting your turn to calculate your total plus tip. It might even do a few
-rounds if the tip is too low. It's a painful and honestly archaic.
+rounds if the tip is too low. It's painful and honestly archaic.
 
 ## The solution
 
-OpenTab makes this process seamless: one person scans the bill and shares a
-link for others to work out their bills. Each person or couple opens the link,
-enters a name, and can begin marking off their items. Once complete, a user
-can select a tip or edit their total, and proceed to the final screen. Here
-they can see a breakdown of how much others have paid and tipped as well as
-the total paid.
+OpenTab makes this process seamless: one person snaps a photo of the bill
+and shares a link. Each person or couple opens the link, enters a name, and
+begins marking off their items. Once done, they select a tip or edit their
+total and move to the final screen — a live breakdown of what everyone owes
+and the running total.
+
+OpenTab is [live](https://example.com) and [open source](https://github.com/example/open-tab).

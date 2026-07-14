@@ -19,3 +19,18 @@ main {
 [data-cloak] {
   display: none !important;
 }
+
+.astro-code {
+  counter-reset: line;
+
+}
+.line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 2em;
+  margin-right: 1em;
+  text-align: right;
+  color: rgba(115, 115, 115, 0.6);
+  user-select: none;
+}
